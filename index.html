@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lohesh M · Network Map</title>
+<meta name="description" content="Lohesh M, AI Engineer building multi-agent systems and LLM workflows. Every project, drawn as a transit network.">
+<meta property="og:title" content="Lohesh M · Network Map">
+<meta property="og:description" content="AI Engineer. Multi-agent systems, LLM workflows, LangGraph, MCP, RAG. Every project, drawn as a transit network.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111'/%3E%3Cpath d='M5 22h9l8-12h5' stroke='%23D7261E' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='14' cy='22' r='3' fill='%23fff' stroke='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800;900&family=Overpass+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3EFE6; --paper-2:#EAE4D6; --ink:#121212; --ink-2:#4A4A48; --rule:#1212121f;
+  --station:#FFFFFF; --card:#FBF9F4;
+  --agent:#D7261E; --vision:#0E9F4F; --rl:#1D63C8; --data:#E8A500; --found:#6B6B6B;
+  --data-ink:#8A6200;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1216; --paper-2:#161A20; --ink:#EEEAE0; --ink-2:#A8A59C; --rule:#EEEAE021;
+    --station:#0F1216; --card:#151920;
+    --agent:#FF4A3D; --vision:#25C26B; --rl:#4C8DF0; --data:#F5B82E; --found:#9A9A9A; --data-ink:#F5B82E;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1216; --paper-2:#161A20; --ink:#EEEAE0; --ink-2:#A8A59C; --rule:#EEEAE021;
+  --station:#0F1216; --card:#151920;
+  --agent:#FF4A3D; --vision:#25C26B; --rl:#4C8DF0; --data:#F5B82E; --found:#9A9A9A; --data-ink:#F5B82E;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Overpass",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono{font-family:"Overpass Mono",ui-monospace,monospace}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+/* ---------- authority bar ---------- */
+.bar{background:#121212;color:#F3EFE6;border-bottom:1px solid #ffffff1a}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:46px;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.bar nav{display:flex;gap:22px}
+.bar a{text-decoration:none;opacity:.8}
+.bar a:hover{opacity:1}
+.mark{display:flex;align-items:center;gap:10px;font-weight:800}
+.mark svg{display:block}
+#themeBtn{background:none;border:1px solid currentColor;color:inherit;border-radius:999px;font:inherit;font-size:11px;padding:3px 10px;cursor:pointer;opacity:.8}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 32px;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:end;border-bottom:3px solid var(--ink)}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+h1{font-weight:900;font-size:clamp(56px,9vw,120px);line-height:.86;letter-spacing:-.035em;margin:10px 0 18px}
+h1 span{display:block}
+.role{font-size:clamp(19px,2.2vw,24px);font-weight:600;max-width:34ch;margin:0}
+.role b{background:var(--agent);color:#fff;padding:0 6px;font-weight:800}
+
+/* status board */
+.board{background:#15181D;color:#EEEAE0;border:1px solid #ffffff1f;border-radius:10px;padding:16px 18px 10px}
+.board h2{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;opacity:.85}
+.board ul{list-style:none;margin:0;padding:0}
+.board li{display:grid;grid-template-columns:118px 1fr;gap:12px;align-items:center;padding:7px 0;border-top:1px solid #ffffff1c;font-size:14px}
+.board li:first-child{border-top:0}
+.pill{display:inline-block;padding:3px 8px;border-radius:4px;font-weight:800;font-size:12px;letter-spacing:.04em;color:#fff;text-align:center}
+.pill.data{color:#111}
+.board .st{color:#D9D5CB}
+[data-theme] .board .st{color:#D9D5CB}
+.blink{display:inline-block;width:8px;height:8px;border-radius:50%;background:#25C26B;margin-right:6px;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ---------- map ---------- */
+.mapsec{padding:26px 0 8px}
+.maphead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.maphead h2{margin:0;font-size:15px;letter-spacing:.14em;text-transform:uppercase}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:5px;border-radius:3px}
+.mapbox{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:12px;background:var(--paper-2)}
+.mapbox svg{display:block;width:100%;min-width:1000px;height:auto}
+.hint{display:none;font-size:13px;color:var(--ink-2);margin-top:8px}
+.zone-label{font:600 12px "Overpass Mono",monospace;fill:var(--ink-2);letter-spacing:.1em}
+.zone{fill:var(--ink);opacity:.035}
+.line{fill:none;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.stn{cursor:pointer;outline:none}
+.stn circle.dot{fill:var(--station);stroke-width:4;transition:r .15s}
+.stn circle.hit{fill:transparent}
+.stn text{font-size:13.5px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--paper-2);stroke-width:5px;stroke-linejoin:round}
+.stn text.sub{font-size:11px;font-weight:600;fill:var(--ink-2);font-family:"Overpass Mono",monospace}
+.stn:hover circle.dot,.stn:focus-visible circle.dot{r:11}
+.stn:focus-visible text{text-decoration:underline}
+.stn.active circle.dot{fill:var(--ink)}
+.star{font:700 11px "Overpass Mono",monospace;fill:var(--data-ink)}
+.here rect{fill:var(--ink)}
+.here text{fill:var(--paper);font:800 10.5px "Overpass",sans-serif;letter-spacing:.12em}
+.ext{stroke-dasharray:2 16;stroke-width:9}
+
+/* ---------- now serving ---------- */
+section h2.sec{font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px;display:flex;align-items:center;gap:12px}
+section h2.sec::after{content:"";flex:1;height:3px;background:var(--ink)}
+.now{padding:56px 0 28px}
+.poster{display:grid;grid-template-columns:1.1fr 1fr;gap:0;border:3px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--card)}
+.poster .l{padding:28px 30px;border-right:3px solid var(--ink)}
+.poster .r{display:grid;grid-template-columns:1fr 1fr}
+.poster h3{margin:6px 0 10px;font-size:32px;line-height:1.05;font-weight:900;letter-spacing:-.02em}
+.poster p{margin:0 0 12px;color:var(--ink-2)}
+.poster ul{margin:10px 0 0;padding-left:18px}
+.poster li{margin:6px 0}
+.stat{padding:22px 22px 18px;border-bottom:3px solid var(--ink);border-left:3px solid var(--ink);display:flex;flex-direction:column;justify-content:space-between;min-height:150px}
+.stat:nth-child(odd){border-left:0}
+.stat:nth-last-child(-n+2){border-bottom:0}
+.stat b{font-size:clamp(34px,4vw,50px);font-weight:900;line-height:1;letter-spacing:-.03em}
+.stat b small{font-size:.5em;font-weight:800}
+.stat span{font-size:14px;color:var(--ink-2)}
+.stat.red{background:var(--agent);color:#fff}
+.stat.red span{color:#fff;opacity:.9}
+.tag{display:inline-block;font:600 11px "Overpass Mono",monospace;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid currentColor;border-radius:4px;padding:1px 6px}
+
+/* ---------- station guide ---------- */
+.guide{padding:48px 0 10px}
+.lines{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:26px 34px}
+.route h3{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-size:20px;font-weight:900}
+.route>p{margin:0 0 14px;color:var(--ink-2);font-size:14.5px}
+.route ol{list-style:none;margin:0;padding:0;position:relative}
+.route ol::before{content:"";position:absolute;left:9px;top:12px;bottom:12px;width:7px;border-radius:4px;background:var(--c)}
+.route li{position:relative;padding:4px 0 14px 38px}
+.route li::before{content:"";position:absolute;left:3px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--station);border:4px solid var(--c)}
+.route li.x::before{border-color:var(--ink);width:15px;height:15px;left:2px;top:7px}
+.route button{all:unset;cursor:pointer;font-weight:800;font-size:16.5px;line-height:1.25}
+.route button:hover,.route button:focus-visible{text-decoration:underline;text-underline-offset:3px}
+.route .meta{display:block;font:600 12px "Overpass Mono",monospace;color:var(--ink-2);margin-top:2px}
+.route .one{display:block;font-size:14.5px;color:var(--ink-2);margin-top:3px}
+.route .gh{font:600 12px "Overpass Mono",monospace;text-decoration:none;border-bottom:1.5px solid var(--c);margin-left:6px}
+
+/* ---------- rolling stock ---------- */
+.stock{padding:40px 0 10px}
+.stock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.car{border:2px solid var(--ink);border-radius:12px 12px 4px 4px;padding:14px 16px 16px;position:relative;background:var(--card)}
+.car::after{content:"";position:absolute;left:18px;right:18px;bottom:-9px;height:9px;background:radial-gradient(circle at 10px 0,var(--ink) 5px,transparent 6px) left/40px 9px repeat-x;opacity:.9}
+.car h4{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.car p{margin:0;font-size:15px}
+
+/* ---------- enquiries ---------- */
+.enq{padding:56px 0 40px}
+.ticket{display:grid;grid-template-columns:1fr auto;border:3px solid var(--ink);border-radius:14px;background:var(--card);overflow:hidden}
+.ticket .main{padding:28px 30px}
+.ticket h3{margin:0 0 6px;font-size:clamp(30px,4vw,46px);font-weight:900;letter-spacing:-.02em;line-height:1}
+.ticket p{margin:0 0 18px;color:var(--ink-2);max-width:52ch}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;border:2px solid var(--ink);text-decoration:none;font-weight:800;font-size:15px;background:var(--paper)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-1px)}
+.stub{border-left:3px dashed var(--ink);padding:24px 26px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:220px;font:600 13px "Overpass Mono",monospace;color:var(--ink-2)}
+.stub b{color:var(--ink);font-size:15px}
+footer{border-top:3px solid var(--ink);padding:16px 0 40px;font-size:13px;color:var(--ink-2)}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+/* ---------- panel ---------- */
+.scrim{position:fixed;inset:0;background:#0006;opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.panel{position:fixed;top:0;right:0;height:100%;width:min(460px,100%);background:var(--card);color:var(--ink);z-index:50;transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;border-left:3px solid var(--ink)}
+.panel.on{transform:none}
+.panel .band{height:12px;background:var(--c,var(--ink))}
+.panel .in{padding:22px 26px 30px;overflow:auto}
+.panel .close{position:absolute;top:22px;right:18px;background:var(--paper);border:2px solid var(--ink);color:var(--ink);border-radius:50%;width:36px;height:36px;font-size:20px;line-height:1;cursor:pointer}
+.panel .k{font:600 12px "Overpass Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);padding-right:44px}
+.panel h3{font-size:30px;line-height:1.05;margin:8px 0 12px;font-weight:900;letter-spacing:-.02em}
+.panel p{margin:0 0 14px}
+.panel ul{padding-left:18px;margin:0 0 16px}
+.panel li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 20px}
+.chips span{font:600 12px "Overpass Mono",monospace;border:1.5px solid var(--rule);background:var(--paper);border-radius:5px;padding:3px 7px}
+.panel .btn{margin-top:4px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:26px;padding-top:38px}
+  .poster{grid-template-columns:1fr}
+  .poster .l{border-right:0;border-bottom:3px solid var(--ink)}
+  .hint{display:block}
+  .ticket{grid-template-columns:1fr}
+  .stub{border-left:0;border-top:3px dashed var(--ink)}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  body{font-size:16px}
+  .bar nav{display:none}
+  .board li{grid-template-columns:96px 1fr;font-size:13px}
+  .poster .l{padding:22px 20px}
+  .stat{min-height:120px;padding:16px}
+  .lines{grid-template-columns:1fr}
+  .panel{top:auto;bottom:0;height:86vh;width:100%;border-left:0;border-top:3px solid var(--ink);border-radius:16px 16px 0 0;transform:translateY(105%)}
+  .panel.on{transform:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="mark">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#F3EFE6"/><path d="M5 22h9l8-12h5" stroke="#D7261E" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="14" cy="22" r="3.2" fill="#fff" stroke="#111" stroke-width="2"/></svg>
+      Lohesh M Transit Authority
+    </div>
+    <nav aria-label="Sections"><a href="#map">Map</a><a href="#now">Now serving</a><a href="#guide">Stations</a><a href="#stock">Rolling stock</a><a href="#enquiries">Enquiries</a></nav>
+    <button id="themeBtn" type="button" aria-label="Toggle colour theme">Night</button>
+  </div>
+</div>
+
+<header class="wrap hero">
+  <div>
+    <div class="kicker mono">Network map · Edition 2026 · Not to scale</div>
+    <h1><span>Lohesh</span><span>M.</span></h1>
+    <p class="role">AI Engineer building <b>multi-agent systems</b> and production LLM workflows, from agent design to deployment.</p>
+  </div>
+  <div class="board" aria-label="Line status">
+    <h2><span><i class="blink"></i>Line status</span><span class="mono" id="clock">--:-- IST</span></h2>
+    <ul>
+      <li><span class="pill" style="background:var(--agent)">Agent</span><span class="st">Good service. In production at Tipstat.</span></li>
+      <li><span class="pill" style="background:var(--vision)">Vision</span><span class="st">Merges into Agent Line at ClipTool.</span></li>
+      <li><span class="pill" style="background:var(--rl)">Reinforcement</span><span class="st">★72 at Lane-Change. Merges at Gen-AI.</span></li>
+      <li><span class="pill data" style="background:var(--data)">Data</span><span class="st">Merges into Agent Line at Gen-AI.</span></li>
+      <li><span class="pill" style="background:var(--found)">Foundations</span><span class="st">Where it started, 2022. Joins Data Line.</span></li>
+    </ul>
+  </div>
+</header>
+
+<section class="wrap mapsec" id="map">
+  <div class="maphead">
+    <h2>Every line converges on agentic AI</h2>
+    <div class="legend" aria-hidden="true">
+      <span><i style="background:var(--agent)"></i>Agent</span>
+      <span><i style="background:var(--vision)"></i>Vision</span>
+      <span><i style="background:var(--rl)"></i>Reinforcement</span>
+      <span><i style="background:var(--data)"></i>Data</span>
+      <span><i style="background:var(--found)"></i>Foundations</span>
+      <span>● click any station</span>
+    </div>
+  </div>
+  <div class="mapbox">
+    <svg id="net" viewBox="0 0 1320 660" role="group" aria-label="Project network map. Each station is a project or role; activate one for details.">
+      <g id="zones"></g>
+      <path class="line" style="stroke:var(--found)" d="M120,590 H250 L370,470"/>
+      <path class="line" style="stroke:var(--data)"  d="M370,470 H630 L770,330"/>
+      <path class="line" style="stroke:var(--rl)"    d="M260,240 H680 L770,330"/>
+      <path class="line" style="stroke:var(--vision)" d="M560,150 H820 L1000,330"/>
+      <path class="line" style="stroke:var(--agent)" d="M770,330 H1160"/>
+      <path class="line ext" style="stroke:var(--agent)" d="M1172,330 H1238"/>
+      <g id="stations"></g>
+    </svg>
+  </div>
+  <p class="hint">Swipe the map sideways. The full station list is further down.</p>
+</section>
+
+<section class="wrap now" id="now">
+  <h2 class="sec">Now serving</h2>
+  <div class="poster">
+    <div class="l">
+      <span class="tag" style="color:var(--agent)">Agent Line · Oct 2025 → now</span>
+      <h3>Product Engineer, AI &amp; Backend<br>Tipstat / Alvoff</h3>
+      <p>Alvoff is an AI B2B sourcing and procurement platform. Working in a two-engineer team, I lead all AI development and co-own the backend.</p>
+      <ul>
+        <li>LangGraph supervisor with custom <b>Jev</b> intent routing across 25 intents</li>
+        <li>4 custom-tuned agentic workflows for product, supplier and contractor discovery and business advisory</li>
+        <li>Hybrid retrieval across Octen, Parallel, Serper, Gemini and OpenRouter, with a Qdrant vector store, Redis sub-query caching and RabbitMQ</li>
+        <li>15-tool MCP server, plus custom scrapers built on SearXNG, Lightpanda and Crawl4AI</li>
+        <li>Deployments on Hetzner via Harbor and in-house CI/CD, with Whisper, Kokoro, Qwen3 and a Qwen2.5-Coder-1.5B JSON-repair model self-hosted on Mac Minis</li>
+      </ul>
+    </div>
+    <div class="r">
+      <div class="stat red"><span>Query latency</span><b>45s → 20s</b></div>
+      <div class="stat"><span>Cost per query</span><b>₹10 → ₹3</b></div>
+      <div class="stat"><span>Routing cost with Jev</span><b>−98<small>%</small></b></div>
+      <div class="stat"><span>Supervisor intents</span><b>25</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap guide" id="guide">
+  <h2 class="sec">Station guide</h2>
+  <div class="lines" id="lines"></div>
+</section>
+
+<section class="wrap stock" id="stock">
+  <h2 class="sec">Rolling stock</h2>
+  <div class="stock-grid">
+    <div class="car"><h4>Agents &amp; LLMs</h4><p>LangGraph, LangChain, MCP (FastMCP), RAG, multi-agent orchestration, Mem0, Langfuse, model tiering and fallbacks</p></div>
+    <div class="car"><h4>Models &amp; training</h4><p>PyTorch, TensorFlow, QLoRA / LoRA fine-tuning, MLX, Ollama, Whisper, OpenCLIP, ViT, DQN family</p></div>
+    <div class="car"><h4>Backend &amp; infra</h4><p>Python, Go, FastAPI, PostgreSQL, Redis, Qdrant, RabbitMQ, Docker, GitHub Actions, Harbor, Hetzner, AWS</p></div>
+    <div class="car"><h4>Data &amp; search</h4><p>Crawl4AI, SearXNG, Lightpanda, Elasticsearch, MongoDB, Pandas, PySpark, MLflow, Airflow</p></div>
+    <div class="car"><h4>How I build</h4><p>Daily Claude Code and Codex user, with context-engineered, token-optimized agentic workflows</p></div>
+  </div>
+</section>
+
+<section class="wrap enq" id="enquiries">
+  <h2 class="sec">Enquiries</h2>
+  <div class="ticket">
+    <div class="main">
+      <h3>Next stop: your team.</h3>
+      <p>Open to AI and LLM engineering roles, and always glad to talk about agentic systems.</p>
+      <div class="btns">
+        <a class="btn primary" href="mailto:lohe1406@gmail.com">lohe1406@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/lohesh-m" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/LoheshM" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="stub"><span>SINGLE · ANY ZONE</span><b>LOHESH M</b><span>AI Engineer</span><span>Bangalore, India</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Lohesh M. Map not to scale. Hand-drawn in SVG, no template.</span><span class="mono">Tip: press a station, then Esc to close</span></div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pTitle" aria-hidden="true">
+  <div class="band"></div>
+  <button class="close" id="pClose" type="button" aria-label="Close">×</button>
+  <div class="in">
+    <div class="k" id="pKick"></div>
+    <h3 id="pTitle"></h3>
+    <p id="pSum"></p>
+    <ul id="pList"></ul>
+    <div class="chips" id="pChips"></div>
+    <div id="pAct"></div>
+  </div>
+</aside>
+
+<script>
+const GH = "https://github.com/LoheshM/";
+const LINES = {
+  agent:{name:"Agent Line",c:"--agent",blurb:"LLM agents, RAG and production AI systems. Every other line merges here."},
+  vision:{name:"Vision Line",c:"--vision",blurb:"Computer vision, from medical imaging to multimodal video understanding."},
+  rl:{name:"Reinforcement Line",c:"--rl",blurb:"Agents that learn by acting: deep Q-learning, bandits and MDPs."},
+  data:{name:"Data Line",c:"--data",blurb:"Forecasting, applied NLP and MLOps."},
+  found:{name:"Foundations Line",c:"--found",blurb:"Where it started: full-stack builds."}
+};
+// x,y = map position; lx,ly,la = label offset/anchor
+const S = [
+ {id:"maze",t:"Maze Runner",sub:"Tata Communications",d:"Nov – Dec 2022",lines:["found"],x:180,y:590,lx:0,ly:-30,la:"middle",repo:"Maze-Runner",
+  s:"A find-the-exit web game with intro, game and maps pages, built during my Tata Communications internship as a team of four.",
+  h:["React, HTML and CSS frontend with custom pathfinding logic","Flask-SQLAlchemy middleware with SQLite for user data","Leaderboard queries optimized to halve latency at peak"],k:["React","Flask","SQLAlchemy","SQLite"]},
+ {id:"agri",t:"Agri Supply Chain",d:"Feb 2023 – Sep 2024",lines:["data","found"],x:370,y:470,lx:0,ly:-18,la:"middle",repo:"Predictive-Pricing-and-Efficient-Transportation-for-Agricultural-Supply-Chain",
+  s:"Fair prices for producers and better logistics for retailers, from forecasting market prices through to routing deliveries.",
+  h:["Price forecasting compared Dense, SimpleRNN, Bi-LSTM and Conv1D+LSTM models; SimpleRNN was most accurate","Fair-price detector based on season, variety and quality","Custom Dijkstra routing: +28% delivery efficiency","Dijkstra combined with knapsack allocation: +36% on-time delivery"],k:["TensorFlow","Keras","Time series","Graph algorithms"]},
+ {id:"lane",t:"Lane-Change RL",sub:"NIT Trichy · ★72",d:"May – Jul 2023",lines:["rl"],x:330,y:240,lx:0,ly:-30,la:"middle",repo:"Comparative-Analysis-of-Reinforcement-Learning-Models-for-Lane-Change-Decision-Making",star:true,
+  s:"Research internship at NIT Trichy: autonomous lane-changing agents trained in the CARLA simulator. My most-starred repository.",
+  h:["Compared DQN, Double DQN and Dueling Double DQN","State built from neighbouring vehicles' distances and velocities plus ego speed","Crash rate cut by 20% through reward and state design","D3QN led in the hardest traffic; Double DQN gave the smoothest lane changes"],k:["CARLA","TensorFlow","Keras","OpenCV","Deep RL"]},
+ {id:"hcl",t:"HCLTech",sub:"Top Performer",d:"May – Jul 2024",lines:["data"],x:510,y:470,lx:0,ly:-30,la:"middle",role:true,
+  s:"Gen AI Data Scientist Intern, recognized as a Top Performer.",
+  h:["Built an NLP density-clustering classifier for employee feedback: 92% accuracy, 95% recall on critical issues","Optimized RAG pipelines and prompt chaining to cut support-chatbot LLM calls by 30%"],k:["NLP","Clustering","RAG","Prompt chaining"]},
+ {id:"mlops",t:"MLOps + GenAI",d:"Sep 2024 – Jan 2025",lines:["data"],x:600,y:470,lx:0,ly:30,la:"middle",repo:"MLOPS",
+  s:"Three connected builds: an end-to-end MLOps pipeline, a serverless GenAI blog platform and a fine-tuned summarizer.",
+  h:["Student-score prediction pipeline (R² = 0.88) with MLflow, Airflow DAGs, DagsHub, CI/CD and AWS","Blog generator on AWS Lambda, Bedrock and S3","Hugging Face summarizer fine-tuned on SAMSum (16k dialogues) and served with FastAPI"],k:["MLflow","Airflow","AWS","Hugging Face","FastAPI"]},
+ {id:"retina",t:"RetinaAI",d:"Sep – Dec 2024",lines:["vision"],x:620,y:150,lx:0,ly:-18,la:"middle",repo:"RetinaAI-Automated-Diabetic-Retinopathy-Detection",
+  s:"Automated detection and grading of diabetic retinopathy from retinal fundus images, with explainable AI.",
+  h:["UNet with VGG16 backbone for lesion segmentation: 94.96% Dice, 91% IoU","Vision Transformer grading: 87.62% accuracy, 91.05% AUC","Grad-CAM heatmaps help clinicians interpret results; CLAHE preprocessing","Trained on the IDRiD and APTOS 2019 datasets"],k:["PyTorch","UNet","ViT","ResNet-34","Grad-CAM"]},
+ {id:"mab",t:"Bandits & MDP",d:"Nov 2024",lines:["rl"],x:650,y:240,lx:0,ly:-18,la:"middle",repo:"Reinforcement_Learning",
+  s:"Two RL systems: multi-armed bandits for article recommendation, and an MDP agent finding paths on a 100×100 grid.",
+  h:["Epsilon-greedy vs Thompson sampling (Beta posteriors)","Monte Carlo control benchmarked against value iteration","Boltzmann exploration, epsilon decay, capped episode length and policy save/load"],k:["Python","Bandits","MDP","Monte Carlo"]},
+ {id:"genai",t:"Gen-AI Suite",d:"Jan 2025",lines:["agent","data","rl"],x:770,y:330,lx:12,ly:26,la:"start",repo:"Gen-AI",
+  s:"A toolkit for working with documents and media. This is where every line joins the Agent Line.",
+  h:["YouTube summarizer with Q&A (Whisper + Llama 2)","FastAPI search agent over Wikipedia, arXiv and FAISS retrievers","Llama 2 7B fine-tuned with QLoRA and LoRA"],k:["LangChain","Llama 2","Whisper","QLoRA","FastAPI"]},
+ {id:"dr",t:"DataReveal",sub:"Gen AI Engineer",d:"Jan – Oct 2025",lines:["agent"],x:845,y:330,lx:0,ly:-30,la:"middle",role:true,
+  s:"Gen AI Engineer on the core team, known for client-facing solution design and fast PoC delivery.",
+  h:["Multi-agent LangGraph system for financial forecasting and ACCA variance analysis, with LLM tool selection across RAG, SQL Agent, trend, narration and compare tools","RabbitMQ and Redis for real-time orchestration","Voice-to-task routing that improved call response time by 40%","Self-hosted DeepSeek-R1-Distill-Qwen-32B on L40S GPUs; fine-tuned SQLCoder-7B with QLoRA"],k:["LangGraph","RAG","SQL Agent","RabbitMQ","QLoRA"]},
+ {id:"docu",t:"DocuVerse",d:"Jun – Jul 2025",lines:["agent"],x:920,y:330,lx:0,ly:30,la:"middle",repo:"DocuVerse-AI-Powered-Document-Processing-Smart-Search",
+  s:"Automates document ingestion, extraction, classification and conversational search.",
+  h:["PaddleOCR feeds LLM metadata extraction, reformatting and table-to-JSON conversion","Automatic classification with organized MongoDB storage","Hybrid RAG combining fuzzy metadata matching and vector semantic search","98% accuracy, with a fault-tolerant chatbot"],k:["PaddleOCR","LLMs","Hybrid RAG","MongoDB","FastAPI"]},
+ {id:"clip",t:"ClipTool",d:"Aug – Oct 2025",lines:["agent","vision"],x:1000,y:330,lx:0,ly:32,la:"middle",repo:"ClipTool",
+  s:"Turns long-form video into 45–60 second clips automatically, using multimodal AI.",
+  h:["5-stage pipeline: ingest, multimodal features, two-pass LLM scoring, boundary refinement, FFmpeg packaging","WhisperX word-level transcripts with speaker diarization, PySceneDetect and OpenCLIP","Gemini scores segments on a 6-dimension engagement rubric","+42% clip relevance, −75% manual editing, −30% inference cost"],k:["WhisperX","OpenCLIP","Gemini","FFmpeg","PySceneDetect"]},
+ {id:"tip",t:"Tipstat / Alvoff",sub:"Product Engineer",d:"Oct 2025 – now",lines:["agent"],x:1075,y:330,lx:0,ly:-30,la:"middle",role:true,here:true,
+  s:"Leading all AI development for Alvoff, an AI B2B sourcing and procurement platform, while co-owning the backend in a two-engineer team.",
+  h:["LangGraph supervisor with custom Jev intent routing across 25 intents","4 custom-tuned agentic workflows fusing Octen, Parallel, Serper, Gemini and OpenRouter, a Qdrant card store, Redis sub-query caching and RabbitMQ","Latency cut from 45s+ to 20s and cost from ₹10 to ₹3 per query while quality improved; Jev cut routing cost by 98%","15-tool MCP server; scrapers built on SearXNG, Lightpanda and Crawl4AI","Hetzner deployments via Harbor and in-house CI/CD, plus self-hosted models on Mac Minis"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
+ {id:"hv",t:"HeyVision / Ozyn",sub:"Assisted",d:"2026",lines:["agent"],x:1160,y:330,lx:0,ly:30,la:"middle",role:true,
+  s:"Assisted on two assistant products at Tipstat.",
+  h:["HeyVision: LangGraph email agents using 73 FastMCP Gmail and Outlook tools, with Mem0 memory","Ozyn AI: supervisor-driven ReAct agent loop dispatching research, browser, coding and document agents over NATS"],k:["LangGraph","FastMCP","Mem0","NATS"]},
+ {id:"next",t:"Your team",sub:"Next stop",d:"Planned extension",lines:["agent"],x:1250,y:330,lx:0,ly:-36,la:"middle",next:true,
+  s:"The line keeps going. If you are building agentic AI, let's talk.",h:[],k:[]}
+];
+const ORDER = ["agent","vision","rl","data","found"];
+
+const svg = document.getElementById("net"), NS = "http://www.w3.org/2000/svg";
+const el = (n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+
+// zones
+const Z=[["2022",60,200],["2023",200,440],["2024",440,720],["2025",720,1100],["2026",1100,1300]], zg=document.getElementById("zones");
+Z.forEach(([y,a,b],i)=>{ if(i%2===0) el("rect",{x:a,y:0,width:b-a,height:660,class:"zone"},zg); const t=el("text",{x:a+12,y:34,class:"zone-label"},zg); t.textContent="ZONE "+y; });
+
+// stations
+const sg=document.getElementById("stations");
+S.forEach(s=>{
+  const g=el("g",{class:"stn",tabindex:"0",role:"button","aria-label":`${s.t}${s.sub?", "+s.sub:""}, ${s.d}`,"data-id":s.id},sg);
+  const multi=s.lines.length>1, col=multi?"var(--ink)":`var(${LINES[s.lines[0]].c})`;
+  el("circle",{class:"hit",cx:s.x,cy:s.y,r:22},g);
+  const c=el("circle",{class:"dot",cx:s.x,cy:s.y,r:multi||s.role?10:8},g);
+  c.style.stroke=col; if(s.next){c.setAttribute("stroke-dasharray","4 3")}
+  const t=el("text",{x:s.x+s.lx,y:s.y+s.ly,"text-anchor":s.la},g); t.textContent=s.t;
+  if(s.sub){const u=el("text",{x:s.x+s.lx,y:s.y+s.ly+(s.ly<0?14:14),"text-anchor":s.la,class:"sub"},g);u.textContent=s.sub.toUpperCase();}
+  if(s.here){const h=el("g",{class:"here","aria-hidden":"true"},sg);el("rect",{x:s.x-52,y:s.y-80,width:104,height:22,rx:4},h);el("path",{d:`M${s.x-6},${s.y-58} L${s.x},${s.y-50} L${s.x+6},${s.y-58}Z`,fill:"var(--ink)"},h);const ht=el("text",{x:s.x,y:s.y-65,"text-anchor":"middle"},h);ht.textContent="YOU ARE HERE";}
+  g.addEventListener("click",()=>openP(s.id)); g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(s.id)}});
+});
+
+// station guide
+const lw=document.getElementById("lines");
+ORDER.forEach(L=>{
+  const info=LINES[L], list=S.filter(s=>s.lines[0]===L||(L!=="agent"&&s.lines.includes(L)&&s.lines[0]!=="agent"));
+  const r=document.createElement("div");r.className="route";r.style.setProperty("--c",`var(${info.c})`);
+  r.innerHTML=`<h3><span class="pill ${L==="data"?"data":""}" style="background:var(${info.c})">${info.name.split(" ")[0]}</span>${info.name}</h3><p>${info.blurb}</p>`;
+  const ol=document.createElement("ol");
+  S.filter(s=>s.lines.includes(L)).forEach(s=>{
+    const li=document.createElement("li"); if(s.lines.length>1)li.className="x";
+    const link=s.repo?`<a class="gh" href="${GH+s.repo}" target="_blank" rel="noopener">repo ↗</a>`:(s.role?`<span class="gh" style="border:0">role</span>`:"");
+    li.innerHTML=`<button type="button" data-id="${s.id}">${s.t}${s.sub&&!s.next?` <span style="font-weight:600;color:var(--ink-2)">(${s.sub})</span>`:""}</button>${link}<span class="meta">${s.d}${s.lines.length>1?" · interchange":""}</span><span class="one">${s.s}</span>`;
+    ol.appendChild(li);
+  });
+  r.appendChild(ol); lw.appendChild(r);
+});
+lw.addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(b)openP(b.dataset.id)});
+
+// panel
+const P=document.getElementById("panel"),SC=document.getElementById("scrim");let last=null;
+function openP(id){
+  const s=S.find(x=>x.id===id); last=document.activeElement;
+  document.querySelectorAll(".stn").forEach(n=>n.classList.toggle("active",n.dataset.id===id));
+  P.style.setProperty("--c",`var(${LINES[s.lines[0]].c})`);
+  document.getElementById("pKick").textContent=s.lines.map(l=>LINES[l].name).join(" ⇄ ")+" · "+s.d;
+  document.getElementById("pTitle").textContent=s.t+(s.sub&&!s.next?" ("+s.sub+")":"");
+  document.getElementById("pSum").textContent=s.s;
+  document.getElementById("pList").innerHTML=s.h.map(x=>`<li>${x}</li>`).join("");
+  document.getElementById("pChips").innerHTML=s.k.map(x=>`<span>${x}</span>`).join("");
+  document.getElementById("pAct").innerHTML=s.repo?`<a class="btn primary" href="${GH+s.repo}" target="_blank" rel="noopener">Open on GitHub ↗</a>`:s.next?`<a class="btn primary" href="#enquiries" id="toEnq">Get in touch</a>`:`<span class="tag">Company work · code is private</span>`;
+  const te=document.getElementById("toEnq"); if(te) te.addEventListener("click",closeP);
+  P.classList.add("on");SC.classList.add("on");P.setAttribute("aria-hidden","false");document.getElementById("pClose").focus();
+}
+function closeP(){P.classList.remove("on");SC.classList.remove("on");P.setAttribute("aria-hidden","true");document.querySelectorAll(".stn.active").forEach(n=>n.classList.remove("active"));if(last&&last.focus)last.focus()}
+document.getElementById("pClose").addEventListener("click",closeP);SC.addEventListener("click",closeP);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&P.classList.contains("on"))closeP()});
+
+// on narrow screens, start the map at "You are here"
+const mb=document.querySelector(".mapbox");if(mb.scrollWidth>mb.clientWidth){const hx=S.find(x=>x.here).x/1320*mb.scrollWidth;mb.scrollLeft=Math.max(0,hx-mb.clientWidth*0.55)}
+
+// clock (IST)
+const ck=document.getElementById("clock");const tick=()=>{try{ck.textContent=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Kolkata"}).format(new Date())+" IST"}catch(e){}};tick();setInterval(tick,30000);
+
+// theme toggle
+const tb=document.getElementById("themeBtn"),root=document.documentElement;
+const isDark=()=>root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+const lbl=()=>tb.textContent=isDark()?"Day":"Night";
+try{const saved=localStorage.getItem("lm-theme");if(saved)root.dataset.theme=saved}catch(e){}
+lbl();tb.addEventListener("click",()=>{root.dataset.theme=isDark()?"light":"dark";try{localStorage.setItem("lm-theme",root.dataset.theme)}catch(e){}lbl()});
+</script>
+</body>
+</html>
