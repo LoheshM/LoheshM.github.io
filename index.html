@@ -217,7 +217,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
     <h2><span><i class="blink"></i>Line status</span><span class="mono" id="clock">--:-- IST</span></h2>
     <ul>
       <li><span class="pill" style="background:var(--agent)">Agent</span><span class="st">Good service. In production at Tipstat.</span></li>
-      <li><span class="pill" style="background:var(--vision)">Vision</span><span class="st">Merges into Agent Line at ClipTool.</span></li>
+      <li><span class="pill" style="background:var(--vision)">Vision</span><span class="st">Merges at ClipTool. New 2026 branch: CLIP classifier.</span></li>
       <li><span class="pill" style="background:var(--rl)">Reinforcement</span><span class="st">★72 at Lane-Change. Merges at Gen-AI.</span></li>
       <li><span class="pill data" style="background:var(--data)">Data</span><span class="st">Merges into Agent Line at Gen-AI.</span></li>
       <li><span class="pill" style="background:var(--found)">Foundations</span><span class="st">Where it started, 2022. Joins Data Line.</span></li>
@@ -244,6 +244,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
       <path class="line" style="stroke:var(--data)"  d="M370,470 H630 L770,330"/>
       <path class="line" style="stroke:var(--rl)"    d="M260,240 H680 L770,330"/>
       <path class="line" style="stroke:var(--vision)" d="M560,150 H820 L1000,330"/>
+      <path class="line" style="stroke:var(--vision)" d="M1128,330 L1218,240"/>
       <path class="line" style="stroke:var(--agent)" d="M770,330 H1160"/>
       <path class="line ext" style="stroke:var(--agent)" d="M1172,330 H1238"/>
       <g id="stations"></g>
@@ -263,6 +264,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
         <li>LangGraph supervisor with custom <b>Jev</b> intent routing across 25 intents</li>
         <li>4 custom-tuned agentic workflows for product, supplier and contractor discovery and business advisory</li>
         <li>Hybrid retrieval across Octen, Parallel, Serper, Gemini and OpenRouter, with a Qdrant vector store, Redis sub-query caching and RabbitMQ</li>
+        <li>Zero-shot CLIP image classifier (ONNX served from Go): ~72ms inference, ~10ms cached, ~9MB idle memory</li>
         <li>15-tool MCP server, plus custom scrapers built on SearXNG, Lightpanda and Crawl4AI</li>
         <li>Deployments on Hetzner via Harbor and in-house CI/CD, with Whisper, Kokoro, Qwen3 and a Qwen2.5-Coder-1.5B JSON-repair model self-hosted on Mac Minis</li>
       </ul>
@@ -373,6 +375,9 @@ const S = [
  {id:"tip",t:"Tipstat / Alvoff",sub:"Product Engineer",d:"Oct 2025 – now",lines:["agent"],x:1075,y:330,lx:0,ly:-30,la:"middle",role:true,here:true,
   s:"Leading all AI development for Alvoff, an AI B2B sourcing and procurement platform, while co-owning the backend in a two-engineer team.",
   h:["LangGraph supervisor with custom Jev intent routing across 25 intents","4 custom-tuned agentic workflows fusing Octen, Parallel, Serper, Gemini and OpenRouter, a Qdrant card store, Redis sub-query caching and RabbitMQ","Latency cut from 45s+ to 20s and cost from ₹10 to ₹3 per query while quality improved; Jev cut routing cost by 98%","15-tool MCP server; scrapers built on SearXNG, Lightpanda and Crawl4AI","Hetzner deployments via Harbor and in-house CI/CD, plus self-hosted models on Mac Minis"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
+ {id:"clipcls",t:"CLIP Image Classifier",sub:"Tipstat",d:"Jun 2026",lines:["vision"],x:1218,y:240,lx:0,ly:-30,la:"middle",priv:true,
+  s:"A zero-shot image classification service for Alvoff's product catalog. CLIP ViT-B/32 is exported to ONNX and served from Go. Built in the same two-engineer team.",
+  h:["No training data needed: classifies against 6 built-in categories, or against any plain-English categories sent with the request","~72ms of CLIP inference per image, ~10ms on a cache hit, and ~500 to 1,000 requests per second when cached","Caches 512-dim embeddings in SQLite by URL, not results, so trying new categories costs only dot products","The Go server starts an ONNX Runtime worker on demand and kills it when idle, so idle memory is ~9MB instead of ~1GB","Batch endpoint for up to 50 images in parallel, plus product-photo validation and Qdrant visual similarity search"],k:["CLIP ViT-B/32","ONNX Runtime","Go","SQLite","Qdrant","Docker"]},
  {id:"hv",t:"HeyVision / Ozyn",sub:"Assisted",d:"2026",lines:["agent"],x:1160,y:330,lx:0,ly:30,la:"middle",role:true,
   s:"Assisted on two assistant products at Tipstat.",
   h:["HeyVision: LangGraph email agents using 73 FastMCP Gmail and Outlook tools, with Mem0 memory","Ozyn AI: supervisor-driven ReAct agent loop dispatching research, browser, coding and document agents over NATS"],k:["LangGraph","FastMCP","Mem0","NATS"]},
@@ -411,7 +416,7 @@ ORDER.forEach(L=>{
   const ol=document.createElement("ol");
   S.filter(s=>s.lines.includes(L)).forEach(s=>{
     const li=document.createElement("li"); if(s.lines.length>1)li.className="x";
-    const link=s.repo?`<a class="gh" href="${GH+s.repo}" target="_blank" rel="noopener">repo ↗</a>`:(s.role?`<span class="gh" style="border:0">role</span>`:"");
+    const link=s.repo?`<a class="gh" href="${GH+s.repo}" target="_blank" rel="noopener">repo ↗</a>`:((s.role||s.priv)?`<span class="gh" style="border:0">${s.priv?"private":"role"}</span>`:"");
     li.innerHTML=`<button type="button" data-id="${s.id}">${s.t}${s.sub&&!s.next?` <span style="font-weight:600;color:var(--ink-2)">(${s.sub})</span>`:""}</button>${link}<span class="meta">${s.d}${s.lines.length>1?" · interchange":""}</span><span class="one">${s.s}</span>`;
     ol.appendChild(li);
   });
