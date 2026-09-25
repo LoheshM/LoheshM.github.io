@@ -8,6 +8,14 @@
 <meta property="og:title" content="Lohesh M · Network Map">
 <meta property="og:description" content="AI Engineer. Multi-agent systems, LLM workflows, LangGraph, MCP, RAG. Every project, drawn as a transit network.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://loheshm.github.io/">
+<meta property="og:image" content="https://loheshm.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lohesh M, AI Engineer: career drawn as a transit network map">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lohesh M · Network Map">
+<meta name="twitter:image" content="https://loheshm.github.io/assets/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111'/%3E%3Cpath d='M5 22h9l8-12h5' stroke='%23D7261E' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='14' cy='22' r='3' fill='%23fff' stroke='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,7 +141,7 @@ section h2.sec::after{content:"";flex:1;height:3px;background:var(--ink)}
 .route .gh{font:600 12px "Overpass Mono",monospace;text-decoration:none;border-bottom:1.5px solid var(--c);margin-left:6px}
 
 /* ---------- rolling stock ---------- */
-.stock{padding:40px 0 10px}
+.stock{padding:40px 0 30px}
 .stock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
 .car{border:2px solid var(--ink);border-radius:12px 12px 4px 4px;padding:14px 16px 16px;position:relative;background:var(--card)}
 .car::after{content:"";position:absolute;left:18px;right:18px;bottom:-9px;height:9px;background:radial-gradient(circle at 10px 0,var(--ink) 5px,transparent 6px) left/40px 9px repeat-x;opacity:.9}
@@ -150,7 +158,10 @@ section h2.sec::after{content:"";flex:1;height:3px;background:var(--ink)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:8px;border:2px solid var(--ink);text-decoration:none;font-weight:800;font-size:15px;background:var(--paper)}
 .btn.primary{background:var(--ink);color:var(--paper)}
 .btn:hover{transform:translateY(-1px)}
-.stub{border-left:3px dashed var(--ink);padding:24px 26px;display:flex;flex-direction:column;justify-content:center;gap:4px;min-width:220px;font:600 13px "Overpass Mono",monospace;color:var(--ink-2)}
+.stub{border-left:3px dashed var(--ink);padding:24px 26px;display:flex;align-items:center;gap:18px;font:600 13px "Overpass Mono",monospace;color:var(--ink-2)}
+.stub img{display:block;width:104px;height:139px;object-fit:cover;border:2px solid var(--ink);border-radius:6px;background:#fff;filter:saturate(.95)}
+.pass{display:flex;flex-direction:column;gap:3px}
+.pass .valid{margin-top:6px;color:var(--agent)}
 .stub b{color:var(--ink);font-size:15px}
 footer{border-top:3px solid var(--ink);padding:16px 0 40px;font-size:13px;color:var(--ink-2)}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -306,7 +317,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
         <a class="btn" href="https://github.com/LoheshM" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
-    <div class="stub"><span>SINGLE · ANY ZONE</span><b>LOHESH M</b><span>AI Engineer</span><span>Bangalore, India</span></div>
+    <div class="stub"><img src="assets/pass.jpg" width="104" height="139" alt="Photo of Lohesh M" loading="lazy"><div class="pass"><span>PASS · ANY ZONE</span><b>LOHESH M</b><span>AI Engineer</span><span>Bangalore, India</span><span class="valid">VALID 2026 →</span></div></div>
   </div>
 </section>
 
