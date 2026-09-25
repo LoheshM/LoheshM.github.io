@@ -103,6 +103,10 @@ h1 span{display:block}
 .here rect{fill:var(--ink)}
 .here text{fill:var(--paper);font:800 10.5px "Overpass",sans-serif;letter-spacing:.12em}
 .ext{stroke-dasharray:2 16;stroke-width:9}
+.complex{fill:var(--ink);fill-opacity:.04;stroke:var(--ink);stroke-width:2;stroke-dasharray:6 5;pointer-events:none}
+.plate rect{fill:var(--ink)}
+.plate text{fill:var(--paper-2);stroke:none;font:800 11.5px "Overpass Mono",monospace;letter-spacing:.08em}
+.plate:hover rect,.plate:focus-visible rect{fill:var(--agent)}
 
 /* ---------- now serving ---------- */
 section h2.sec{font-size:15px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px;display:flex;align-items:center;gap:12px}
@@ -250,15 +254,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
     </div>
   </div>
   <div class="mapbox">
-    <svg id="net" viewBox="0 0 1320 660" role="group" aria-label="Project network map. Each station is a project or role; activate one for details.">
+    <svg id="net" viewBox="0 0 1340 660" role="group" aria-label="Project network map. Each station is a project or role; activate one for details.">
       <g id="zones"></g>
       <path class="line" style="stroke:var(--found)" d="M120,590 H250 L370,470"/>
       <path class="line" style="stroke:var(--data)"  d="M370,470 H630 L770,330"/>
       <path class="line" style="stroke:var(--rl)"    d="M260,240 H680 L770,330"/>
       <path class="line" style="stroke:var(--vision)" d="M560,150 H820 L1000,330"/>
-      <path class="line" style="stroke:var(--vision)" d="M1128,330 L1218,240"/>
-      <path class="line" style="stroke:var(--agent)" d="M770,330 H1160"/>
-      <path class="line ext" style="stroke:var(--agent)" d="M1172,330 H1238"/>
+      <path class="line" style="stroke:var(--vision)" d="M1120,330 L1210,240"/>
+      <path class="line" style="stroke:var(--agent)" d="M770,330 H1215"/>
+      <path class="line ext" style="stroke:var(--agent)" d="M1229,330 H1288"/>
       <g id="stations"></g>
     </svg>
   </div>
@@ -270,8 +274,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   <div class="poster">
     <div class="l">
       <span class="tag" style="color:var(--agent)">Agent Line · Oct 2025 → now</span>
-      <h3>Product Engineer, AI &amp; Backend<br>Tipstat / Alvoff</h3>
-      <p>Alvoff is an AI B2B sourcing and procurement platform. Working in a two-engineer team, I lead all AI development and co-own the backend.</p>
+      <h3>Product Engineer, AI &amp; Backend<br>Tipstat</h3>
+      <p>I work across three products at Tipstat. On <b>Alvoff</b>, an AI B2B sourcing and procurement platform, I lead all AI development and co-own the backend in a two-engineer team. I also assisted on <b>HeyVision</b>, an AI email assistant, and <b>Ozyn AI</b>, a multi-agent personal assistant. Alvoff highlights:</p>
       <ul>
         <li>LangGraph supervisor with custom <b>Jev</b> intent routing across 25 intents</li>
         <li>4 custom-tuned agentic workflows for product, supplier and contractor discovery and business advisory</li>
@@ -384,16 +388,22 @@ const S = [
  {id:"clip",t:"ClipTool",d:"Aug – Oct 2025",lines:["agent","vision"],x:1000,y:330,lx:0,ly:32,la:"middle",repo:"ClipTool",
   s:"Turns long-form video into 45–60 second clips automatically, using multimodal AI.",
   h:["5-stage pipeline: ingest, multimodal features, two-pass LLM scoring, boundary refinement, FFmpeg packaging","WhisperX word-level transcripts with speaker diarization, PySceneDetect and OpenCLIP","Gemini scores segments on a 6-dimension engagement rubric","+42% clip relevance, −75% manual editing, −30% inference cost"],k:["WhisperX","OpenCLIP","Gemini","FFmpeg","PySceneDetect"]},
- {id:"tip",t:"Tipstat / Alvoff",sub:"Product Engineer",d:"Oct 2025 – now",lines:["agent"],x:1075,y:330,lx:0,ly:-30,la:"middle",role:true,here:true,
-  s:"Leading all AI development for Alvoff, an AI B2B sourcing and procurement platform, while co-owning the backend in a two-engineer team.",
-  h:["LangGraph supervisor with custom Jev intent routing across 25 intents","4 custom-tuned agentic workflows fusing Octen, Parallel, Serper, Gemini and OpenRouter, a Qdrant card store, Redis sub-query caching and RabbitMQ","Latency cut from 45s+ to 20s and cost from ₹10 to ₹3 per query while quality improved; Jev cut routing cost by 98%","15-tool MCP server; scrapers built on SearXNG, Lightpanda and Crawl4AI","Hetzner deployments via Harbor and in-house CI/CD, plus self-hosted models on Mac Minis"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
- {id:"clipcls",t:"CLIP Image Classifier",sub:"Tipstat",d:"Jun 2026",lines:["vision"],x:1218,y:240,lx:0,ly:-30,la:"middle",priv:true,
+ {id:"tip",t:"Tipstat",sub:"Product Engineer, AI & Backend",d:"Oct 2025 – now",lines:["agent"],box:{x:1032,y:196,w:233,h:196},role:true,
+  s:"Product Engineer on AI and backend at Tipstat, working across three products. I lead AI on Alvoff and assisted on HeyVision and Ozyn AI.",
+  h:["Alvoff: lead all AI development and co-own the backend, in a two-engineer team","HeyVision: assisted on the LangGraph email agents","Ozyn AI: assisted on the multi-agent personal assistant"],k:["LangGraph","MCP","FastAPI","Qdrant","Hetzner"]},
+ {id:"alvoff",t:"Alvoff",sub:"AI Lead",d:"Oct 2025 – now",lines:["agent"],x:1085,y:330,lx:0,ly:-30,la:"middle",priv:true,here:true,
+  s:"An AI B2B sourcing and procurement platform. I lead all AI development and co-own the backend in a two-engineer team.",
+  h:["LangGraph supervisor with custom Jev intent routing across 25 intents","4 custom-tuned agentic workflows fusing Octen, Parallel, Serper, Gemini and OpenRouter, with a Qdrant card store, Redis sub-query caching and RabbitMQ","Latency cut from 45s+ to 20s and cost from ₹10 to ₹3 per query while quality improved; Jev cut routing cost by 98%","15-tool MCP server, and scrapers built on SearXNG, Lightpanda and Crawl4AI","Hetzner deployments via Harbor and in-house CI/CD; Whisper, Kokoro, Qwen3 and a Qwen2.5-Coder-1.5B JSON-repair model self-hosted on Mac Minis"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
+ {id:"clipcls",t:"CLIP Classifier",sub:"Alvoff",d:"Jun 2026",lines:["vision"],x:1210,y:240,lx:0,ly:-30,la:"middle",priv:true,
   s:"A zero-shot image classification service for Alvoff's product catalog. CLIP ViT-B/32 is exported to ONNX and served from Go. Built in the same two-engineer team.",
   h:["No training data needed: classifies against 6 built-in categories, or against any plain-English categories sent with the request","~72ms of CLIP inference per image, ~10ms on a cache hit, and ~500 to 1,000 requests per second when cached","Caches 512-dim embeddings in SQLite by URL, not results, so trying new categories costs only dot products","The Go server starts an ONNX Runtime worker on demand and kills it when idle, so idle memory is ~9MB instead of ~1GB","Batch endpoint for up to 50 images in parallel, plus product-photo validation and Qdrant visual similarity search"],k:["CLIP ViT-B/32","ONNX Runtime","Go","SQLite","Qdrant","Docker"]},
- {id:"hv",t:"HeyVision / Ozyn",sub:"Assisted",d:"2026",lines:["agent"],x:1160,y:330,lx:0,ly:30,la:"middle",role:true,
-  s:"Assisted on two assistant products at Tipstat.",
-  h:["HeyVision: LangGraph email agents using 73 FastMCP Gmail and Outlook tools, with Mem0 memory","Ozyn AI: supervisor-driven ReAct agent loop dispatching research, browser, coding and document agents over NATS"],k:["LangGraph","FastMCP","Mem0","NATS"]},
- {id:"next",t:"Your team",sub:"Next stop",d:"Planned extension",lines:["agent"],x:1250,y:330,lx:0,ly:-36,la:"middle",next:true,
+ {id:"hv",t:"HeyVision",sub:"Assisted",d:"2026",lines:["agent"],x:1150,y:330,lx:0,ly:30,la:"middle",priv:true,
+  s:"An AI email assistant at Tipstat. I assisted on its agentic email automation.",
+  h:["LangGraph email agents working through 73 FastMCP tools for Gmail and Outlook","Mem0 + Qdrant memory for style-matched drafts, with approval before anything is sent"],k:["LangGraph","FastMCP","Mem0","Qdrant"]},
+ {id:"ozyn",t:"Ozyn AI",sub:"Assisted",d:"2026",lines:["agent"],x:1215,y:330,lx:0,ly:30,la:"middle",priv:true,
+  s:"A multi-agent personal assistant (an \"AI chief of staff\") on web, WhatsApp and Telegram. I assisted on its agent core.",
+  h:["Supervisor-driven ReAct agent loop that dispatches research, browser, coding and document agents over NATS","Unified graph + vector memory recall","MCP integrations across workspace, CRM and productivity tools"],k:["ReAct","NATS","MCP","Graph memory"]},
+ {id:"next",t:"Your team",sub:"Next stop",d:"Planned extension",lines:["agent"],x:1300,y:330,lx:0,ly:-36,la:"middle",next:true,
   s:"The line keeps going. If you are building agentic AI, let's talk.",h:[],k:[]}
 ];
 const ORDER = ["agent","vision","rl","data","found"];
@@ -402,12 +412,22 @@ const svg = document.getElementById("net"), NS = "http://www.w3.org/2000/svg";
 const el = (n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
 
 // zones
-const Z=[["2022",60,200],["2023",200,440],["2024",440,720],["2025",720,1100],["2026",1100,1300]], zg=document.getElementById("zones");
+const Z=[["2022",60,200],["2023",200,440],["2024",440,720],["2025",720,1100],["2026",1100,1320]], zg=document.getElementById("zones");
 Z.forEach(([y,a,b],i)=>{ if(i%2===0) el("rect",{x:a,y:0,width:b-a,height:660,class:"zone"},zg); const t=el("text",{x:a+12,y:34,class:"zone-label"},zg); t.textContent="ZONE "+y; });
 
 // stations
 const sg=document.getElementById("stations");
 S.forEach(s=>{
+  if(s.box){
+    const b=s.box, cx=el("g",{"aria-hidden":"true"},sg);
+    el("rect",{x:b.x,y:b.y,width:b.w,height:b.h,rx:16,class:"complex"},cx);
+    const g=el("g",{class:"stn plate",tabindex:"0",role:"button","aria-label":`${s.t}, ${s.sub}, ${s.d}`,"data-id":s.id},sg);
+    const w=Math.max(150, 10+ (s.t.length+s.d.length+3)*8.2);
+    el("rect",{x:b.x,y:b.y-26,width:w,height:24,rx:5},g);
+    const t=el("text",{x:b.x+10,y:b.y-9},g); t.textContent=s.t.toUpperCase()+" · "+s.d.toUpperCase();
+    g.addEventListener("click",()=>openP(s.id)); g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(s.id)}});
+    return;
+  }
   const g=el("g",{class:"stn",tabindex:"0",role:"button","aria-label":`${s.t}${s.sub?", "+s.sub:""}, ${s.d}`,"data-id":s.id},sg);
   const multi=s.lines.length>1, col=multi?"var(--ink)":`var(${LINES[s.lines[0]].c})`;
   el("circle",{class:"hit",cx:s.x,cy:s.y,r:22},g);
@@ -415,7 +435,7 @@ S.forEach(s=>{
   c.style.stroke=col; if(s.next){c.setAttribute("stroke-dasharray","4 3")}
   const t=el("text",{x:s.x+s.lx,y:s.y+s.ly,"text-anchor":s.la},g); t.textContent=s.t;
   if(s.sub){const u=el("text",{x:s.x+s.lx,y:s.y+s.ly+(s.ly<0?14:14),"text-anchor":s.la,class:"sub"},g);u.textContent=s.sub.toUpperCase();}
-  if(s.here){const h=el("g",{class:"here","aria-hidden":"true"},sg);el("rect",{x:s.x-52,y:s.y-80,width:104,height:22,rx:4},h);el("path",{d:`M${s.x-6},${s.y-58} L${s.x},${s.y-50} L${s.x+6},${s.y-58}Z`,fill:"var(--ink)"},h);const ht=el("text",{x:s.x,y:s.y-65,"text-anchor":"middle"},h);ht.textContent="YOU ARE HERE";}
+  if(s.here){const h=el("g",{class:"here","aria-hidden":"true"},sg);el("rect",{x:s.x-48,y:s.y-80,width:96,height:22,rx:4},h);el("path",{d:`M${s.x-6},${s.y-58} L${s.x},${s.y-50} L${s.x+6},${s.y-58}Z`,fill:"var(--ink)"},h);const ht=el("text",{x:s.x,y:s.y-65,"text-anchor":"middle"},h);ht.textContent="YOU ARE HERE";}
   g.addEventListener("click",()=>openP(s.id)); g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openP(s.id)}});
 });
 
@@ -456,7 +476,7 @@ document.getElementById("pClose").addEventListener("click",closeP);SC.addEventLi
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&P.classList.contains("on"))closeP()});
 
 // on narrow screens, start the map at "You are here"
-const mb=document.querySelector(".mapbox");if(mb.scrollWidth>mb.clientWidth){const hx=S.find(x=>x.here).x/1320*mb.scrollWidth;mb.scrollLeft=Math.max(0,hx-mb.clientWidth*0.55)}
+const mb=document.querySelector(".mapbox");if(mb.scrollWidth>mb.clientWidth){const hx=S.find(x=>x.here).x/1340*mb.scrollWidth;mb.scrollLeft=Math.max(0,hx-mb.clientWidth*0.55)}
 
 // clock (IST)
 const ck=document.getElementById("clock");const tick=()=>{try{ck.textContent=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Kolkata"}).format(new Date())+" IST"}catch(e){}};tick();setInterval(tick,30000);
