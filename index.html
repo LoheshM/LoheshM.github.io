@@ -275,20 +275,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
     <div class="l">
       <span class="tag" style="color:var(--agent)">Agent Line · Oct 2025 → now</span>
       <h3>Product Engineer, AI &amp; Backend<br>Tipstat</h3>
-      <p>I work across three products at Tipstat. On <b>Alvoff</b>, an AI B2B sourcing and procurement platform, I lead all AI development and co-own the backend in a two-engineer team. I also assisted on <b>HeyVision</b>, an AI email assistant, and <b>Ozyn AI</b>, a multi-agent personal assistant. Alvoff highlights:</p>
+      <p>I work across three products at Tipstat. On <a href="https://alvoff.ai" target="_blank" rel="noopener"><b>Alvoff</b></a>, an AI B2B sourcing and procurement platform, I lead all AI development and co-own the backend in a two-engineer team. I also assisted on <b>HeyVision</b>, an AI email assistant, and <b>Ozyn AI</b>, a multi-agent personal assistant. Alvoff highlights:</p>
       <ul>
         <li>LangGraph supervisor with custom <b>Jev</b> intent routing across 25 intents</li>
-        <li>4 custom-tuned agentic workflows for product, supplier and contractor discovery and business advisory</li>
-        <li>Hybrid retrieval across Octen, Parallel, Serper, Gemini and OpenRouter, with a Qdrant vector store, Redis sub-query caching and RabbitMQ</li>
+        <li>4 custom-tuned agentic discovery workflows on hybrid retrieval: Octen, Parallel, Serper and Gemini fused with Qdrant and PostgreSQL full-text search, tiered Redis caching and RabbitMQ</li>
+        <li>Distributed crawler that processed 52M+ domains and indexed 2M+ domains and 36M+ pages at zero infrastructure cost</li>
+        <li><a href="https://inference.alvoff.ai" target="_blank" rel="noopener">Alvoff Inference</a>: a 10-node Mac Mini cluster serving Whisper, Kokoro, Qwen3 embeddings and a Qwen2.5-Coder-1.5B JSON-repair LLM</li>
         <li>Zero-shot CLIP image classifier (ONNX served from Go): ~72ms inference, ~10ms cached, ~9MB idle memory</li>
-        <li>15-tool MCP server, plus custom scrapers built on SearXNG, Lightpanda and Crawl4AI</li>
-        <li>Deployments on Hetzner via Harbor and in-house CI/CD, with Whisper, Kokoro, Qwen3 and a Qwen2.5-Coder-1.5B JSON-repair model self-hosted on Mac Minis</li>
+        <li>28-tool MCP server (OAuth 2.1 + PKCE) for Claude and Cursor; all services shipped to Hetzner via Harbor and GitHub Actions CI/CD</li>
       </ul>
     </div>
     <div class="r">
       <div class="stat red"><span>Query latency</span><b>45s → 20s</b></div>
-      <div class="stat"><span>Cost per query</span><b>₹10 → ₹3</b></div>
-      <div class="stat"><span>Routing cost with Jev</span><b>−98<small>%</small></b></div>
+      <div class="stat"><span>Cost per 1M queries (was $114K)</span><b>$34K</b></div>
+      <div class="stat"><span>Jev routing per 1M calls (was $3,450)</span><b>$79</b></div>
       <div class="stat"><span>Supervisor intents</span><b>25</b></div>
     </div>
   </div>
@@ -391,9 +391,9 @@ const S = [
  {id:"tip",t:"Tipstat",sub:"Product Engineer, AI & Backend",d:"Oct 2025 – now",lines:["agent"],box:{x:1032,y:196,w:233,h:196},role:true,
   s:"Product Engineer on AI and backend at Tipstat, working across three products. I lead AI on Alvoff and assisted on HeyVision and Ozyn AI.",
   h:["Alvoff: lead all AI development and co-own the backend, in a two-engineer team","HeyVision: assisted on the LangGraph email agents","Ozyn AI: assisted on the multi-agent personal assistant"],k:["LangGraph","MCP","FastAPI","Qdrant","Hetzner"]},
- {id:"alvoff",t:"Alvoff",sub:"AI Lead",d:"Oct 2025 – now",lines:["agent"],x:1085,y:330,lx:0,ly:-30,la:"middle",priv:true,here:true,
+ {id:"alvoff",t:"Alvoff",sub:"AI Lead",d:"Oct 2025 – now",lines:["agent"],x:1085,y:330,lx:0,ly:-30,la:"middle",priv:true,here:true,site:"https://alvoff.ai",
   s:"An AI B2B sourcing and procurement platform. I lead all AI development and co-own the backend in a two-engineer team.",
-  h:["LangGraph supervisor with custom Jev intent routing across 25 intents","4 custom-tuned agentic workflows fusing Octen, Parallel, Serper, Gemini and OpenRouter, with a Qdrant card store, Redis sub-query caching and RabbitMQ","Latency cut from 45s+ to 20s and cost from ₹10 to ₹3 per query while quality improved; Jev cut routing cost by 98%","15-tool MCP server, and scrapers built on SearXNG, Lightpanda and Crawl4AI","Hetzner deployments via Harbor and in-house CI/CD; Whisper, Kokoro, Qwen3 and a Qwen2.5-Coder-1.5B JSON-repair model self-hosted on Mac Minis"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
+  h:["LangGraph supervisor with custom Jev intent routing across 25 intents, plus a procurement-planning agent","4 custom-tuned agentic discovery workflows on hybrid retrieval: Octen, Parallel, Serper and Gemini grounding fused with Qdrant and PostgreSQL full-text search, tiered Redis caching, RabbitMQ (DLX/DLQ) and SSE","Latency cut from 45s+ to 20s and cost from $114K to $34K per 1M queries (−70%) while quality improved; Jev cut routing cost from $3,450 to $79 per 1M calls","Distributed B2B crawler (master-worker, priority frontier, Bloom-filter dedup, SearXNG seeding, Tor rotation): 52M+ domains processed, 2M+ domains and 36M+ pages indexed at zero infrastructure cost","<a href=\"https://inference.alvoff.ai\" target=\"_blank\" rel=\"noopener\">Alvoff Inference</a>: a 10-node bare-metal Mac Mini cluster serving Whisper large-v3-turbo, Kokoro-82M, Qwen3 embeddings and a Qwen2.5-Coder-1.5B JSON-repair LLM","28-tool MCP server (OAuth 2.1 + PKCE) for Claude and Cursor; all services shipped to Hetzner via Harbor and GitHub Actions CI/CD"],k:["LangGraph","MCP","Qdrant","Redis","RabbitMQ","Hetzner"]},
  {id:"clipcls",t:"CLIP Classifier",sub:"Alvoff",d:"Jun 2026",lines:["vision"],x:1210,y:240,lx:0,ly:-30,la:"middle",priv:true,
   s:"A zero-shot image classification service for Alvoff's product catalog. CLIP ViT-B/32 is exported to ONNX and served from Go. Built in the same two-engineer team.",
   h:["No training data needed: classifies against 6 built-in categories, or against any plain-English categories sent with the request","~72ms of CLIP inference per image, ~10ms on a cache hit, and ~500 to 1,000 requests per second when cached","Caches 512-dim embeddings in SQLite by URL, not results, so trying new categories costs only dot products","The Go server starts an ONNX Runtime worker on demand and kills it when idle, so idle memory is ~9MB instead of ~1GB","Batch endpoint for up to 50 images in parallel, plus product-photo validation and Qdrant visual similarity search"],k:["CLIP ViT-B/32","ONNX Runtime","Go","SQLite","Qdrant","Docker"]},
@@ -448,7 +448,7 @@ ORDER.forEach(L=>{
   const ol=document.createElement("ol");
   S.filter(s=>s.lines.includes(L)).forEach(s=>{
     const li=document.createElement("li"); if(s.lines.length>1)li.className="x";
-    const link=s.repo?`<a class="gh" href="${GH+s.repo}" target="_blank" rel="noopener">repo ↗</a>`:((s.role||s.priv)?`<span class="gh" style="border:0">${s.priv?"private":"role"}</span>`:"");
+    const link=s.repo?`<a class="gh" href="${GH+s.repo}" target="_blank" rel="noopener">repo ↗</a>`:s.site?`<a class="gh" href="${s.site}" target="_blank" rel="noopener">site ↗</a>`:((s.role||s.priv)?`<span class="gh" style="border:0">${s.priv?"private":"role"}</span>`:"");
     li.innerHTML=`<button type="button" data-id="${s.id}">${s.t}${s.sub&&!s.next?` <span style="font-weight:600;color:var(--ink-2)">(${s.sub})</span>`:""}</button>${link}<span class="meta">${s.d}${s.lines.length>1?" · interchange":""}</span><span class="one">${s.s}</span>`;
     ol.appendChild(li);
   });
@@ -467,7 +467,7 @@ function openP(id){
   document.getElementById("pSum").textContent=s.s;
   document.getElementById("pList").innerHTML=s.h.map(x=>`<li>${x}</li>`).join("");
   document.getElementById("pChips").innerHTML=s.k.map(x=>`<span>${x}</span>`).join("");
-  document.getElementById("pAct").innerHTML=s.repo?`<a class="btn primary" href="${GH+s.repo}" target="_blank" rel="noopener">Open on GitHub ↗</a>`:s.next?`<a class="btn primary" href="#enquiries" id="toEnq">Get in touch</a>`:`<span class="tag">Company work · code is private</span>`;
+  document.getElementById("pAct").innerHTML=s.repo?`<a class="btn primary" href="${GH+s.repo}" target="_blank" rel="noopener">Open on GitHub ↗</a>`:s.next?`<a class="btn primary" href="#enquiries" id="toEnq">Get in touch</a>`:s.site?`<a class="btn primary" href="${s.site}" target="_blank" rel="noopener">Visit ${s.site.replace("https://","")} ↗</a> <span class="tag" style="margin-left:8px">Code is private</span>`:`<span class="tag">Company work · code is private</span>`;
   const te=document.getElementById("toEnq"); if(te) te.addEventListener("click",closeP);
   P.classList.add("on");SC.classList.add("on");P.setAttribute("aria-hidden","false");document.getElementById("pClose").focus();
 }
